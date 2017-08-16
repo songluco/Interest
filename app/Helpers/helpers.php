@@ -14,13 +14,18 @@ if (!function_exists('funcReturn')) {
     }
 }
 
-
 /**
  * 舍去法保留2位小数,不要逗号
  * @param $amount
  * @return string
  */
-function displayAmountNoComma($amount)
-{
-    return $sAmount = sprintf("%.2f", substr(sprintf("%.4f", $amount), 0, -2));
+if(!function_exists('displayAmountNoComma')){
+    function displayAmountNoComma($amount)
+    {
+        $amountRes = sprintf("%.2f", substr(sprintf("%.4f", $amount), 0, -2));
+        return $amountRes;
+    }
 }
+
+
+

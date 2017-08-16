@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\FixRateBuilder;
+use App\Services\MonthlyInterestRepayMode;
 use App\Tools\DateAbout\DateAbout;
 use App\Tools\DateAbout\DateMode;
 use Illuminate\Http\Request;
@@ -22,6 +23,7 @@ class TestController extends Controller
             'annual_income'       => '6', //产品年化收益率
             'interest_base_days'  => 360, //计息天数基数
             'financier_id'        => 2, //融资方id
+            'project_repay_day'   => 2, //产品还款日（非必填字段）
         ];
 
         $orders[1] = [
@@ -39,11 +41,9 @@ class TestController extends Controller
             'user_id'         => 10086003, //此订单的用户ID
             'order_id'        => 20086003, //订单ID
         ];
-//        $FixRateModel = new FixRateBuilder($project, $orders);
-//        $data = $FixRateModel->build($project, $orders);
 
-        $month = new FixRateBuilder($project, $orders);
-        $data = $month->build($project, $orders);
+        $model = new MonthlyInterestRepayMode($project, $orders);
+        $data = $model->buildUserPayPlans();
 
         dd($data);
 //        $projectRequireKeys = [
